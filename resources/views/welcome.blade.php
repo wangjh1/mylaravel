@@ -9,7 +9,6 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
         <!-- Styles -->
         <style>
             html, body {
@@ -65,27 +64,69 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
-                </div>
-            @endif
+        {{--<div class="flex-center position-ref full-height">--}}
+            {{--@if (Route::has('login'))--}}
+                {{--<div class="top-right links">--}}
+                    {{--<a href="{{ url('/login') }}">Login</a>--}}
+                    {{--<a href="{{ url('/register') }}">Register</a>--}}
+                {{--</div>--}}
+            {{--@endif--}}
 
+            {{--<div class="content">--}}
+                {{--<div class="title m-b-md">--}}
+                    {{--Laravel--}}
+                {{--</div>--}}
+
+                {{--<div class="links">--}}
+                    {{--<a href="https://laravel.com/docs">Documentation</a>--}}
+                    {{--<a href="https://laracasts.com">Laracasts</a>--}}
+                    {{--<a href="https://laravel-news.com">News</a>--}}
+                    {{--<a href="https://forge.laravel.com">Forge</a>--}}
+                    {{--<a href="https://github.com/laravel/laravel">GitHub</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        <div class="container">
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+                {{--<div class="title">
+                    <ul>
+                        <p>@{{ message }}</p>
+                        <button v-on:click="reverseMessage">反转消息</button>
+                    </ul>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                </div>--}}
+                <input v-model="newTodo" v-on:keyup.enter="addTodo">
+                <ul>
+                    <li v-for="todo in todos">
+                        <span>@{{ todo.text }}</span>
+                        <button v-on:click="removeTodo(this)">X</button>
+                    </li>
+                </ul>
             </div>
         </div>
+        <script type="text/javascript" src="{{asset('js/vue.js')}}"></script>
+        <script type="text/javascript">
+            new Vue({
+                el: '.content',
+                data: {
+                    newTodo: '',
+                    todos: [
+                        { text: '新增todos' }
+                    ]
+                },
+                methods: {
+                    addTodo: function () {
+                        var text = this.newTodo.trim()
+                        if (text) {
+                            this.todos.push({ text: text })
+                            this.newTodo = ''
+                        }
+                    },
+                    removeTodo: function (index) {
+                        this.todos.splice(index, 1)
+                    }
+                }
+            })
+        </script>
     </body>
 </html>
